@@ -43,6 +43,16 @@
         }
     }
 
+    function validateUser($user,$pass){
+        global $conn;
+        $sql = "SELECT * FROM user where username='$user' and matkhau='$pass' ";
+        $query = mysqli_query($conn,$sql);
+        if(mysqli_num_rows($query) == 0){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 
 
 ?>

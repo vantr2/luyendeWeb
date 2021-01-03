@@ -1,6 +1,13 @@
 <?php
+    session_start();
     require "db.php";
     $nvs = getListNhanVien();
+    $log_note = "";
+    if(isset($_SESSION['username'])){
+        $log_note = $_SESSION['username']." - Đăng nhập lần cuối lúc : " .  $_SESSION['login_time'];
+    }else{
+        header("location:login.php"); // Trang này bắt buốc phải đăng nhập
+    }
 ?>
 
 <!doctype html>
@@ -17,17 +24,19 @@
     <script src="js/jquery-3.5.1.slim.js" type="text/javascript"></script>
 </head>
 <body>
-<h5>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5 mb-5 font-weight-bold">
+<h6>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5">
         <a href="index.php" class="navbar-brand">TRONGVAN</a>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Thêm vận đơn</a></li>
-            <li class="nav-item"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="#" class="nav-link">Thêm vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="logout.php" class="nav-link">Đăng xuất</a></li>
         </ul>
     </nav>
-</h5>
+</h6>
+<div class="text-right"><?=$log_note?></div>
 <h1 class="text-center">Thêm vận đơn</h1>
 <div class="container">
     <form action="index.php" method="post">

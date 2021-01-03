@@ -1,5 +1,20 @@
 <?php
+    session_start();
+    date_default_timezone_set("Asia/Ho_Chi_Minh");
     require "db.php";
+
+    //Xử lý phần menu đăng nhập, Nếu đã đăng nhập thì ghi Đăng xuất, chưa đăng nhập thì Đăng nhập
+    $link = "";$title = "";
+    //Hiển thị tên đăng nhập và thời gian đăng nhập
+    $log_note = "";
+    if(isset($_SESSION['username'])){
+        $link = "logout.php";
+        $title = "Đăng xuất";
+        $log_note = $_SESSION['username']." - Đăng nhập lần cuối lúc : " .  $_SESSION['login_time'];
+    }else{
+        $link = "login.php";
+        $title = "Đăng nhập";
+    }
 
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         $id = $_POST['id'];
@@ -23,25 +38,31 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/jquery-3.5.1.slim.js" type="text/javascript"></script>
     <title>Quản lý vận đơn</title>
 </head>
 <body>
 
-    <h5>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5 mb-5 font-weight-bold">
+    <h6>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5">
         <a href="index.php" class="navbar-brand">TRONGVAN</a>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
-            <li class="nav-item"><a href="themvandon.php" class="nav-link">Thêm vận đơn</a></li>
-            <li class="nav-item"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="themvandon.php" class="nav-link">Thêm vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="<?=$link?>" class="nav-link"><?=$title?></a></li>
         </ul>
+
     </nav>
-    </h5>
+    </h6>
+
+    <div class="text-right"><?=$log_note?></div>
+
     <div class="container">
         <h1 class="text-center text-uppercase m-4">quản lý vận đơn</h1>
         <input class="form-control" id="tennv" onkeyup="searchByName()" type="text" placeholder="Tên nhân viên"><br>

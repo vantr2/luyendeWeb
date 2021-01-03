@@ -1,3 +1,20 @@
+<?php
+    session_start();
+
+    //Xử lý phần menu đăng nhập, Nếu đã đăng nhập thì ghi Đăng xuất, chưa đăng nhập thì Đăng nhập
+    $link = "";$title = "";
+    //Hiển thị tên đăng nhập và thời gian đăng nhập
+    $log_note = "";
+    if(isset($_SESSION['username'])){
+        $link = "logout.php";
+        $title = "Đăng xuất";
+        $log_note = $_SESSION['username']." - Đăng nhập lần cuối lúc : " .  $_SESSION['login_time'];
+    }else{
+        $link = "login.php";
+        $title = "Đăng nhập";
+    }
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,20 +29,23 @@
     <script src="js/jquery-3.5.1.slim.js" type="text/javascript"></script>
 </head>
 <body>
-<h5>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5 mb-5 font-weight-bold">
+<h6>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark pl-5">
         <a href="index.php" class="navbar-brand">TRONGVAN</a>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Thêm vận đơn</a></li>
-            <li class="nav-item"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="index.php" class="nav-link">Danh sách vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="#" class="nav-link">Thêm vận đơn</a></li>
+            <li class="nav-item mx-4"><a href="showimage.php" class="nav-link">Hình ảnh</a></li>
+            <li class="nav-item mx-4"><a href="<?=$link?>" class="nav-link"><?=$title?></a></li>
+
         </ul>
     </nav>
-</h5>
+</h6>
+<div class="text-right"><?=$log_note?></div>
 <div class="container">
     <div class="text-center my-5 py-5">
-        <img src="images/logo_final.png" alt="Hình ảnh chứng minh" >
+        <img src="images/img.png" alt="Hình ảnh chứng minh" width="80%">
     </div>
 </div>
 <footer class="text-center bg-dark py-3 text-light mt-5"><h5>75780 - Trần Trọng Văn - CNT58DH</h5></footer>
